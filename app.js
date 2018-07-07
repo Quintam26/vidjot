@@ -8,7 +8,7 @@ app.get('/', (req, res) => {
 });
 
 //About Route
-app.get('/about', (req,res) => {
+app.get('/about', (req, res) => {
     res.send('ABOUT');
 })
 
