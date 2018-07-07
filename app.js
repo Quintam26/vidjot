@@ -5,9 +5,11 @@ const mongoose = require('mongoose');
 const app = express();
 
 //Connect to moongose
-mongoose.connect('mongodb//localhost/vidjot-dev', {  
+mongoose.connect('mongodb://localhost/vidjot-dev', {
+      
 })
-.then(() => console.log('MongoDB Connected...'));
+    .then(() => console.log('MongoDB Connected...'))
+    .catch(err => console.log(err));
 
 //Handlebars middleware
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
