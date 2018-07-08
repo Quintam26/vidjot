@@ -40,6 +40,14 @@ app.use(session({
 //Connect-flash middleware
 app.use(flash());
 
+//Global variables for messages...middleware
+app.use(function(req, res, next){
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    next();
+});
+
 //Index Route
 app.get('/', (req, res) => {
     const title = 'Welcome';
@@ -104,23 +112,25 @@ app.post('/ideas', (req, res) => {
         }
         new Idea(newUser).save()
             .then(idea => {
+                req.flash('success_msg', 'Video idea added')
                 res.redirect('/ideas');
         })
     }
 });
 
-//Edit and Update form process
+//Edit form process
 app.put('/ideas/:id', (req, res) => {
     Idea.findOne({
         _id: req.params.id
     })
         .then(idea => {
-            //New values
+            //New values, update
             idea.title = req.body.title;
             idea.details = req.body.details;
 
             idea.save()
                 .then(idea => {
+                    req.flash('success_msg', 'Video idea updated')
                     res.redirect('/ideas');
                 })
         });
@@ -130,6 +140,7 @@ app.put('/ideas/:id', (req, res) => {
 app.delete('/ideas/:id', (req, res) => {
     Idea.remove({_id: req.params.id})
         .then(() => {
+            req.flash('success_msg', 'Video idea removed')
             res.redirect('/ideas');
         });
 });
