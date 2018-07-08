@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const exphbs = require('express-handlebars');
 const methodOverride = require('method-override');
 const flash = require('connect-flash');
@@ -10,6 +11,7 @@ const app = express();
 
 //Load routes
 const ideas = require('./routes/ideas');
+const users = require('./routes/users');
 
 //Connect to moongose
 mongoose.connect('mongodb://localhost/vidjot-dev', {
@@ -18,8 +20,6 @@ mongoose.connect('mongodb://localhost/vidjot-dev', {
     .then(() => console.log('MongoDB Connected...'))
     .catch(err => console.log(err));
 
-
-
 //Handlebars middleware
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
@@ -27,6 +27,9 @@ app.set('view engine', 'handlebars');
 //Body-parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+//Static folder
+app.use(express.static(path.join(__dirname, 'public')));
 
 //Metheod-override middleware
 app.use(methodOverride('_method'));
@@ -62,18 +65,10 @@ app.get('/about', (req, res) => {
     res.render('about');
 });
 
-//User login route
-app.get('/users/login', (req, res) => {
-    res.send('login');
-});
-
-//User register route
-app.get('/users/register', (req, res) => {
-    res.send('register');
-})
-
 //Use routes
 app.use('/ideas', ideas);
+app.use('/users', users);
+
 
 const port = 5000;
 
