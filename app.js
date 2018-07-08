@@ -21,8 +21,8 @@ app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
 //Body-parser middleware
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 //Index Route
 app.get('/', (req, res) => {
@@ -35,12 +35,35 @@ app.get('/', (req, res) => {
 //About Route
 app.get('/about', (req, res) => {
     res.render('about');
-})
+});
+
+//Idea Index page
+app.get('/ideas', (req, res) => {
+    Idea.find({})
+        .sort({date: 'desc'})
+        .then(ideas => {
+            res.render('ideas/index', {
+                ideas: ideas
+            });
+        });
+});
 
 //Add Idea Form
 app.get('/ideas/add', (req, res) => {
     res.render('ideas/add');
-})
+});
+
+//Edit Idea Form
+app.get('/ideas/edit/:id', (req, res) => {
+    Idea.findOne({
+        _id: req.params.id
+    })
+    .then(idea => {
+        res.render('ideas/edit', {
+            idea: idea
+        });
+    });
+});
 
 //Process form
 app.post('/ideas', (req, res) => {
