@@ -114,7 +114,7 @@ app.post('/ideas', (req, res) => {
             .then(idea => {
                 req.flash('success_msg', 'Video idea added')
                 res.redirect('/ideas');
-        })
+        });
     }
 });
 
