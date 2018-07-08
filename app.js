@@ -90,17 +90,28 @@ app.post('/ideas', (req, res) => {
             title: req.body.title,
             details: req.body.details,
         }
-        new Idea(newUser)
-        .save()
-        .then(idea => {
-            res.redirect('/ideas');
+        new Idea(newUser).save()
+            .then(idea => {
+                res.redirect('/ideas');
         })
     }
 });
 
 //Edit and Update form process
 app.put('/ideas/:id', (req, res) => {
-    
+    Idea.findOne({
+        _id: req.params.id
+    })
+        .then(idea => {
+            //New values
+            idea.title = req.body.title;
+            idea.details = req.body.details;
+
+            idea.save()
+                .then(idea => {
+                    res.redirect('/ideas');
+                })
+        });
 });
 
 const port = 5000;
