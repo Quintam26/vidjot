@@ -2,7 +2,7 @@
 
 A NodeJS and Express app that allows users to register or log-in into their account.
 
-Users have CRUD capabilties for post on their video ideas.
+Users have CRUD capabilties for video idea posts.
 
 User authentication completed using Passport middleware for NodeJS.  
 
