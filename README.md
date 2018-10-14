@@ -6,19 +6,19 @@ Users have CRUD capabilties for post on their video ideas.
 
 User authentication completed using Passport middleware for NodeJS.  
 
-npm i following dependencies:
+npm install following dependencies:
 
-"bcryptjs"
-"body-parser"
-"connect-flash"
-"express"
-"express-handlebars"
-"express-session"
-"method-override"
-"mongoose"
-"nodemon"
-"passport"
-"passport-local"
+bcryptjs,
+body-parser,
+connect-flash,
+express,
+express-handlebars,
+express-session,
+method-override,
+mongoose,
+nodemon,
+passport,
+passport-local
 
 
 
